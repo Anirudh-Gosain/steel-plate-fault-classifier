@@ -66,6 +66,13 @@ def report_table(model, X, y):
     """sklearn's classification report as a DataFrame."""
     report = classification_report(y, model.predict(X), output_dict=True,
                                    zero_division=0)
+    # sklearn stores accuracy as a single number, not a row of four, so it
+    # is rebuilt by hand: the value goes under f1-score (where sklearn's own
+    # text report prints it) and the support is the number of plates
+    accuracy = report.pop("accuracy")
     table = pd.DataFrame(report).T
+    table.loc["accuracy"] = [np.nan, np.nan, accuracy, len(y)]
+    table = table.loc[[*table.index[:-3], "accuracy", "macro avg",
+                       "weighted avg"]]
     table["support"] = table["support"].astype(int)
     return table
