@@ -115,6 +115,18 @@ predicted probabilities.
 | Naive Bayes | 0.5733 | 0.9043 | 0.5490 | 0.6825 | 0.5706 | 0.5081 |
 | Support Vector Machine | 0.7095 | **0.9238** | 0.7256 | **0.7732** | 0.7448 | 0.6348 |
 
+**Run on BITS Virtual Lab.** The same code was also run on the BITS
+Virtual Lab (Linux, Python 3.12.7, scikit-learn 1.9.1). KNN, Naive Bayes
+and SVM gave identical scores. Logistic Regression differed only in the
+fourth decimal of AUC (0.9233). The Decision Tree came out slightly
+different: Accuracy 0.7198, AUC 0.9183, Precision 0.7624, Recall 0.7432,
+F1 0.7490, MCC 0.6410. When two candidate splits score almost exactly the
+same, tiny floating-point differences between processors (the table above
+was produced on an Apple-silicon Mac) can make the tree choose a different
+one. The conclusions below hold for both runs: the Decision Tree still has
+the best accuracy, precision, F1 and MCC. The models deployed in the app
+are the ones in `model/`, which produced the table above.
+
 Recall for each fault type on the test set (share of each fault that is
 caught):
 
