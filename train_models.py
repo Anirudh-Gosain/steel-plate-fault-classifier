@@ -150,6 +150,12 @@ print(pd.DataFrame({"train": y_train.value_counts(),
 # %%
 scalers = [StandardScaler(), PowerTransformer(method="yeo-johnson")]
 
+# scikit-learn renamed CalibratedClassifierCV's "base_estimator" to
+# "estimator" in version 1.2. Asking the class which one it has lets the
+# same grid run on the BITS Virtual Lab's Anaconda and on newer installs.
+SVM_INNER = ("estimator" if "estimator" in CalibratedClassifierCV().get_params()
+             else "base_estimator")
+
 candidates = {
     "Logistic Regression": (
         Pipeline([("scale", StandardScaler()),
@@ -190,9 +196,9 @@ candidates = {
                       SVC(kernel="rbf", random_state=SEED),
                       method="sigmoid", cv=5, ensemble=False))]),
         {"scale": scalers,
-         "clf__estimator__C": [0.3, 1, 3, 10, 30],
-         "clf__estimator__gamma": ["scale", 0.01, 0.03, 0.1],
-         "clf__estimator__class_weight": [None, "balanced"]}),
+         f"clf__{SVM_INNER}__C": [0.3, 1, 3, 10, 30],
+         f"clf__{SVM_INNER}__gamma": ["scale", 0.01, 0.03, 0.1],
+         f"clf__{SVM_INNER}__class_weight": [None, "balanced"]}),
 }
 
 file_names = {
@@ -224,7 +230,7 @@ for name, (pipeline, grid) in candidates.items():
     tuned[name] = search.best_estimator_
 
     # the chosen settings, written so that they read well in the README
-    chosen = {key.replace("clf__", "").replace("estimator__", ""): (type(value).__name__
+    chosen = {key.replace("clf__", "").replace(f"{SVM_INNER}__", ""): (type(value).__name__
                                          if key == "scale" else value)
               for key, value in search.best_params_.items()}
     search_log[name] = {

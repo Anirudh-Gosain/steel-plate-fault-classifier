@@ -71,6 +71,7 @@ https://github.com/Anirudh-Gosain/steel-plate-fault-classifier
 steel-plate-fault-classifier/
 ├── app.py                  Streamlit app (loads the saved models, never retrains)
 ├── train_models.py         data preparation, tuning, evaluation, saving
+├── run_on_bits_lab.ipynb   runs train_models.py in Jupyter (used on BITS Virtual Lab)
 ├── fault_metrics.py        the six metrics, confusion matrix, report
 │                           (shared by training and the app)
 ├── requirements.txt
