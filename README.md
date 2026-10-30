@@ -3,7 +3,7 @@
 ML Assignment 2 · M.Tech (AIML) · Anirudh Gosain (2026AK05290)
 
 - **GitHub repository:** https://github.com/Anirudh-Gosain/steel-plate-fault-classifier
-- **Live Streamlit app:** _added after deployment_
+- **Live Streamlit app:** https://steel-fault-inspector.streamlit.app/
 
 ## a. Problem statement
 
