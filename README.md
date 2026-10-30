@@ -52,6 +52,7 @@ production line (`Length_of_Conveyer`, `TypeOfSteel_A300`,
 `Orientation_Index`, `Luminosity_Index`, `SigmoidOfAreas`).
 
 **Preparation.**
+
 - The raw file has the label as 7 one-hot columns with exactly one set per
   row; they are collapsed into the single `Fault_Type` column.
 - `TypeOfSteel_A400` is dropped because it always equals
