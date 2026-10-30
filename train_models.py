@@ -338,3 +338,25 @@ for name in tuned:
     same = all(np.isclose(again[m], comparison.loc[name, m])
                for m in METRIC_NAMES)
     print(f"{name:<24} reloaded model matches: {same}")
+
+# %% [markdown]
+# ## 9. Summary
+#
+# The final results in one place, so the end of the run shows the whole
+# outcome: the environment it ran in and the test scores of all five models.
+
+# %%
+import platform
+
+print()
+print("=" * 78)
+print("SUMMARY: Steel Plates Faults, 5 classifiers, held-out test set "
+      f"({len(X_test)} plates)")
+print(f"python {platform.python_version()} | scikit-learn {sklearn.__version__}"
+      f" | host {platform.node()}")
+print("=" * 78)
+print(comparison.round(4).to_string())
+print("-" * 78)
+best_model = comparison["MCC"].idxmax()
+print(f"Highest test MCC: {best_model} ({comparison.loc[best_model, 'MCC']:.4f})"
+      f" | models saved to {MODEL_DIR.name}/")
