@@ -9,6 +9,7 @@ trained or refitted here.
 Run locally with:  streamlit run app.py
 """
 
+import io
 import json
 from pathlib import Path
 
@@ -67,8 +68,10 @@ def load_models():
 
 
 @st.cache_data
-def read_csv(source):
-    return pd.read_csv(source)
+def read_csv(raw_bytes):
+    """Parse CSV bytes. Taking bytes (not the upload object) keeps the
+    cache keyed on the file content itself."""
+    return pd.read_csv(io.BytesIO(raw_bytes))
 
 
 INFO, MODELS = load_models()
@@ -156,10 +159,10 @@ held-out test set. Upload plates, pick a model, inspect the results.</p>
 </div>""", unsafe_allow_html=True)
 
 if upload is not None and not use_sample:
-    data = read_csv(upload)
+    data = read_csv(upload.getvalue())
     source_name = upload.name
 else:
-    data = read_csv(SAMPLE_CSV)
+    data = read_csv(SAMPLE_CSV.read_bytes())
     source_name = "test_data.csv (bundled)"
 
 missing, has_target = check_columns(data)
@@ -210,9 +213,12 @@ with tab_eval:
         with right:
             st.markdown("**Classification report**")
             report = report_table(model, X, y)
-            st.dataframe(report.style.format(
-                {"precision": "{:.3f}", "recall": "{:.3f}",
-                 "f1-score": "{:.3f}"}, na_rep=""), width="stretch")
+            # written out as text so the empty cells on the accuracy row
+            # stay blank instead of showing "None"
+            for column in ["precision", "recall", "f1-score"]:
+                report[column] = report[column].map(
+                    lambda v: "" if pd.isna(v) else f"{v:.3f}")
+            st.dataframe(report, width="stretch")
 
 
 # ---------- tab 2: all five models side by side ----------
