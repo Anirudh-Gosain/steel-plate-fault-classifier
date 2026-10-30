@@ -1,0 +1,155 @@
+{
+  "dataset": "Steel Plates Faults (UCI id 198)",
+  "target": "Fault_Type",
+  "features": [
+    "X_Minimum",
+    "X_Maximum",
+    "Y_Minimum",
+    "Y_Maximum",
+    "Pixels_Areas",
+    "X_Perimeter",
+    "Y_Perimeter",
+    "Sum_of_Luminosity",
+    "Minimum_of_Luminosity",
+    "Maximum_of_Luminosity",
+    "Length_of_Conveyer",
+    "TypeOfSteel_A300",
+    "Steel_Plate_Thickness",
+    "Edges_Index",
+    "Empty_Index",
+    "Square_Index",
+    "Outside_X_Index",
+    "Edges_X_Index",
+    "Edges_Y_Index",
+    "Outside_Global_Index",
+    "LogOfAreas",
+    "Log_X_Index",
+    "Log_Y_Index",
+    "Orientation_Index",
+    "Luminosity_Index",
+    "SigmoidOfAreas"
+  ],
+  "classes": [
+    "Bumps",
+    "Dirtiness",
+    "K_Scatch",
+    "Other_Faults",
+    "Pastry",
+    "Stains",
+    "Z_Scratch"
+  ],
+  "seed": 5290,
+  "train_rows": 1552,
+  "test_rows": 389,
+  "metric_averaging": "macro (Precision, Recall, F1); macro one-vs-rest (AUC)",
+  "models": {
+    "Logistic Regression": {
+      "file": "logistic_regression.joblib",
+      "best_params": {
+        "C": 10,
+        "class_weight": null,
+        "scale": "StandardScaler"
+      },
+      "cv_mcc_mean": 0.6426136889946206,
+      "cv_mcc_std": 0.02033519496433956,
+      "settings_tried": 20,
+      "seconds": 4.2,
+      "test_scores": {
+        "Accuracy": 0.6838046272493573,
+        "AUC": 0.9233756496387711,
+        "Precision": 0.673428127178002,
+        "Recall": 0.7057636239653784,
+        "F1": 0.6876162213769457,
+        "MCC": 0.5940913237220256
+      }
+    },
+    "Decision Tree": {
+      "file": "decision_tree.joblib",
+      "best_params": {
+        "class_weight": null,
+        "criterion": "entropy",
+        "max_depth": 8,
+        "min_samples_leaf": 10
+      },
+      "cv_mcc_mean": 0.6589971476266115,
+      "cv_mcc_std": 0.02628567444408623,
+      "settings_tried": 144,
+      "seconds": 2.1,
+      "test_scores": {
+        "Accuracy": 0.7249357326478149,
+        "AUC": 0.9200271112677568,
+        "Precision": 0.7674001114093282,
+        "Recall": 0.7453401699015734,
+        "F1": 0.7526097945606499,
+        "MCC": 0.6469838055852175
+      }
+    },
+    "KNN": {
+      "file": "knn.joblib",
+      "best_params": {
+        "n_neighbors": 9,
+        "p": 1,
+        "weights": "distance",
+        "scale": "StandardScaler"
+      },
+      "cv_mcc_mean": 0.691824554035985,
+      "cv_mcc_std": 0.02753668969475234,
+      "settings_tried": 56,
+      "seconds": 5.3,
+      "test_scores": {
+        "Accuracy": 0.7146529562982005,
+        "AUC": 0.9229335956276491,
+        "Precision": 0.7364310253393576,
+        "Recall": 0.7505156717876016,
+        "F1": 0.7344537384168481,
+        "MCC": 0.6321351854258281
+      }
+    },
+    "Naive Bayes": {
+      "file": "naive_bayes.joblib",
+      "best_params": {
+        "var_smoothing": 0.3,
+        "scale": "StandardScaler"
+      },
+      "cv_mcc_mean": 0.5462176913086649,
+      "cv_mcc_std": 0.027210124029231373,
+      "settings_tried": 14,
+      "seconds": 1.3,
+      "test_scores": {
+        "Accuracy": 0.5732647814910026,
+        "AUC": 0.9042933303170927,
+        "Precision": 0.5490209185609868,
+        "Recall": 0.6824614672202391,
+        "F1": 0.5706180863769602,
+        "MCC": 0.5081474611089073
+      }
+    },
+    "Support Vector Machine": {
+      "file": "svm.joblib",
+      "best_params": {
+        "C": 3,
+        "class_weight": "balanced",
+        "gamma": 0.1,
+        "scale": "StandardScaler"
+      },
+      "cv_mcc_mean": 0.7060417143785472,
+      "cv_mcc_std": 0.02912524870570641,
+      "settings_tried": 80,
+      "seconds": 21.8,
+      "test_scores": {
+        "Accuracy": 0.7095115681233933,
+        "AUC": 0.9237595639618826,
+        "Precision": 0.7255915338338867,
+        "Recall": 0.7732319215871847,
+        "F1": 0.7447565357903967,
+        "MCC": 0.6348170930753811
+      }
+    }
+  },
+  "versions": {
+    "python": "3.14.6",
+    "scikit-learn": "1.9.1",
+    "pandas": "3.1.0",
+    "numpy": "2.5.1"
+  }
+}
